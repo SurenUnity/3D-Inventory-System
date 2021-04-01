@@ -15,8 +15,6 @@ namespace Controllers.Game
 
         private InventoryView _inventoryView;
 
-        private CompositeDisposable _disposablesOnDisable = new CompositeDisposable();
-
         [Inject]
         public InventoryController(WorldController worldController, InventoryWindowController inventoryWindowController)
         {
@@ -32,14 +30,6 @@ namespace Controllers.Game
 
             _inventoryView.openAction += Open;
             _inventoryView.putItem += PutItem;
-
-            MessageBroker.Default
-                .Receive<DropMassage>()
-                .Subscribe(d =>
-                {
-                    // Close();
-                })
-                .AddTo(_disposablesOnDisable);
         }
 
         public void Open()
